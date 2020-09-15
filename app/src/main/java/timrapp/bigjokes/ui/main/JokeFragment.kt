@@ -32,13 +32,23 @@ class JokeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateJoke()
+        if (savedInstanceState == null) {
+            updateJoke()
+        } else {
+            // Fragment was recreated, display last joke
+            jokeTextView.text = viewModel.lastJokeText
+        }
+
+        swipeRefresh.setOnRefreshListener {
+            updateJoke()
+        }
     }
 
     private fun updateJoke() {
         viewModel.getJoke().observe(this) {
             // viewmodel changed, update the UI
             jokeTextView.text = it
+            swipeRefresh.isRefreshing = false
         }
     }
 

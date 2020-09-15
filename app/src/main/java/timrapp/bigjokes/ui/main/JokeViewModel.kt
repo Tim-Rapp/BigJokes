@@ -9,11 +9,13 @@ import java.io.IOException
 
 class JokeViewModel : ViewModel() {
     private val retrofit = JokeRetrofitService.get()
+    lateinit var lastJokeText: String
 
     fun getJoke() = liveData<Joke> {
         val joke = fetchJoke()
         if (joke != null) {
             // cache joke in case activity recreated
+            lastJokeText = joke.text
             emit(joke)
         }
     }.map { joke -> joke.text }

@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import kotlinx.android.synthetic.main.joke_fragment.*
 import timrapp.bigjokes.R
+import timrapp.bigjokes.data.EspressoTestingIdlingResource
 
 class JokeFragment : Fragment() {
 
@@ -45,11 +46,14 @@ class JokeFragment : Fragment() {
     }
 
     private fun updateJoke() {
+        EspressoTestingIdlingResource.increment()
+
         viewModel.getJoke().observe(this) {
             // viewmodel changed, update the UI
             jokeTextView.text = it
             swipeRefresh.isRefreshing = false
         }
-    }
 
+        EspressoTestingIdlingResource.decrement()
+    }
 }

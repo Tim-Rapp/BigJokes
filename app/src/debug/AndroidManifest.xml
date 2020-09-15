@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="timrapp.bigjokes">
+
+    <!-- required for mockwebserver since by default that uses http not https-->
+    <!-- androidTest uses a debug build-->
+    <application
+        android:usesCleartextTraffic="true"
+        />
+
+</manifest>
